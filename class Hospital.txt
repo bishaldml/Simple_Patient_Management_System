@@ -1,0 +1,38 @@
+class Hospital:
+    '''
+    Patient Management System
+    '''
+    def __init__(self,action):
+        self.action = action
+
+    def PatientMgmt(self):
+        if self.action == "insert":
+            p_id = input("Enter Patient ID : ")        
+            p_name = input("Enter Patient Name : ")
+            p_address = input("Enter Patient Address : ")
+            pdf = open("patient.data","a")
+            pdf.write(p_id + ":" + p_name + ":" + p_address)
+            pdf.write("\n")
+            pdf.close()
+        if self.action == "delete":
+            pid = input("Enter PID : ")
+            pdf = open("patient.data","r+")
+            pd = pdf.readlines()
+            #print("The list of patient record after deletion: "+ pd)
+            pdf.seek(0)
+            pdf.truncate()
+
+            for data in pd:
+                s1 = data.find(pid)
+                if s1 != 0:
+                    pdf.write(data)
+                    pdf.close()
+                
+
+ 
+
+action = "start"
+while action != "stop":
+    action = input("Please enter your action (Insert, Delete and Stop) ").lower()
+    hosp = Hospital(action)
+    hosp.PatientMgmt()
